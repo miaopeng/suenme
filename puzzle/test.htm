@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Puzzle Test</title>
+<meta charset="utf-8"/>
+<style type="text/css">
+body {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 12px;
+    color: #336699;
+    text-align: center;
+    background:url(img/bg.png);
+}
+h1 { text-align:left; color:#fff;font-size:30px;}
+h1 span { margin-left:10px; font-size:12px;color:#666; }
+ul { list-style:none;margin:0;padding:0}
+#box { width:570px;position:relative;margin:40px 40px;}
+#wrapper {
+    position: relative;
+    height: 320px;
+    width: 280px;
+    margin-left: 200px;
+}
+
+.item {
+    cursor:pointer;
+    display:inline-block;
+    position:relative;
+    float:left;
+    width:75px;
+    height:75px;
+    background-color:#004466;
+    background-repeat:no-repeat;
+    -webkit-box-shadow: 0 0 5px #000;
+    -moz-box-shadow: 0 0 5px #000;
+    -webkit-transition: -webkit-transform 0.20s ease-in-out;
+    -moz-transition: -moz-transform 0.20s ease-in-out;
+}
+.selected { border:3px solid #598cbf;margin:-3px 0 0 -3px;z-index:11 !important; }
+.f1 .item, .avatar-f1 { background-image:url(img/avatar_female_01_fte01.png); }
+.f5 .item, .avatar-f5 { background-image:url(img/avatar_female_05_fte01.png); }
+.m1 .item, .avatar-m1 { background-image:url(img/avatar_male_01_fte01.png); }
+.m2 .item, .avatar-m2 { background-image:url(img/avatar_male_02_fte01.png); }
+.m4 .item, .avatar-m4 { background-image:url(img/avatar_male_04_fte01.png); }
+.m5 .item, .avatar-m5 { background-image:url(img/avatar_male_05_fte01.png); }
+.m7 .item, .avatar-m7 { background-image:url(img/avatar_male_07_fte01.png); }
+.m8 .item, .avatar-m8 { background-image:url(img/avatar_male_08_fte01.png); }
+
+.item_1 { background-position: 0 0; }
+.item_2 { background-position: -75px 0; }
+.item_3 { background-position: -150px 0; }
+.item_4 { background-position: 0 -75px; }
+.item_5 { background-position: -75px -75px; }
+.item_6 { background-position: -150px -75px; }
+.item_7 { background-position: 0 -150px; }
+.item_8 { background-position: -75px -150px; }
+.item_9 { background-position: -150px -150px; }
+.item_10 { background-position: 0 -225px; }
+.item_11 { background-position: -75px -225px; }
+.item_12 { background-position: -150px -225px; }
+
+.avatar-f1 { background-position: -70px -40px; }
+.avatar-f5 { background-position: -105px -40px; }
+.avatar-m1 { background-position: -100px -20px; }
+.avatar-m2 { background-position: -85px -25px; }
+.avatar-m4 { background-position: -105px -15px; }
+.avatar-m5 { background-position: -115px -25px; }
+.avatar-m7 { background-position: -60px -10px; }
+.avatar-m8 { background-position: -115px 0; }
+
+#info { width:280px;height:70px;margin-left:200px;text-align:left;}
+.hide { display:none !important;}
+.avatar-list { float:left;width:200px;}
+.avatar-list li { 
+  float:left;
+  background-color:#333;
+  width:79px;
+  height:79px;
+  margin:0 5px 5px 0;
+  padding:0;
+  cursor:pointer;
+  box-shadow:0 0 5px #333;
+  border-radius:5px;
+  transition:margin .2s;
+  -moz-transition:margin .2s; /* Firefox 4 */
+  -webkit-transition:margin .2s; /* Safari and Chrome */
+  -o-transition:margin .2s; /* Opera */
+}
+.avatar-list li:hover { background-color:#666;margin-left:8px;}
+.avatar-list li.hi { background-color:#666; }
+
+.panel-btn { width:100px;height:200px;position:absolute;right:0;top:70px}
+.btn { 
+  display:block;
+  width:65px;
+  height:30px;
+  background:#333;
+  color:#fff;
+  padding:8px 0 0;
+  margin-bottom:20px;
+  font-size:14px;
+  box-shadow:0 0 5px #333;
+  border-radius:3px;
+}
+.btn:hover {
+  background-color:#666;
+}
+</style>
+</head>
+<body>
+
+<div id="box">
+	<h1>Samurai Puzzle<span>Farewell, SD ~</span> </h1> 
+  <div id="info" class="hide">
+	  <h2>You Win!</h2>
+	  <div>Time : <span id="time"></span></div>
+  </div>
+
+  <ul id="panel-avatar" class="avatar-list">
+    <li data-avatar="m1" class="avatar-m1"></li>
+    <li data-avatar="m2" class="avatar-m2"></li>
+    <li data-avatar="m4" class="avatar-m4"></li>
+    <li data-avatar="m7" class="avatar-m7"></li>
+    <li data-avatar="m8" class="avatar-m8"></li>
+    <li data-avatar="m5" class="avatar-m5"></li>
+    <li data-avatar="f1" class="avatar-f1"></li>
+    <li data-avatar="f5" class="avatar-f5"></li>
+  </ul>
+
+  <div id="wrapper" class="f5">
+    <div class="item item_1"></div>
+    <div class="item item_2"></div>
+    <div class="item item_3"></div>
+    <div class="item item_4"></div>
+    <div class="item item_5"></div>
+    <div class="item item_6"></div>
+    <div class="item item_7"></div>
+    <div class="item item_8"></div>
+    <div class="item item_9"></div>
+    <div class="item item_10"></div>
+    <div class="item item_11"></div>
+    <div class="item item_12"></div>
+  </div>
+
+  <div id="panel-btn" class="panel-btn">
+    <a class="btn btn-start" href="javascript:;">Start</a>
+    <a class="btn btn-return" href="javascript:;">Return</a>
+  </div>
+  
+</div>  
+
+<script src="mootools.js"></script>
+<script src="puzzle.js"></script>
+<script>
+window.addEvent('domready', function() {
+  game = new Puzzle({
+    items:      $$('.item'),
+    wrapper:    $('wrapper'),
+    infoPanel : $('info'),   
+    btnPanel:   $('panel-btn'),
+    avatarPanel:$('panel-avatar')
+  });
+});
+</script>
+</body>
+</html>
+
